@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Student Submissions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            outline: none;
+            text-decoration: none;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: rgb(219, 219, 219);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            padding: 20px;
+            background: #fff;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo a {
+            color: #000;
+            font-size: 18px;
+            font-weight: 600;
+            margin-right: 20px;
+        }
+
+        .search_box {
+            display: flex;
+            align-items: center;
+        }
+
+        .search_box input {
+            padding: 10px;
+            width: 250px;
+            background: rgb(228, 228, 228);
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border: none;
+            outline: none;
+        }
+
+        .search_box button {
+            padding: 10px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            cursor: pointer;
+        }
+
+        .container {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        nav {
+            background: #fff;
+        }
+
+        .side_navbar {
+            padding: 1px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .side_navbar span {
+            color: gray;
+            margin: 1rem 3rem;
+            font-size: 12px;
+        }
+
+        .side_navbar a {
+            width: 100%;
+            padding: 0.8rem 3rem;
+            font-weight: 500;
+            font-size: 15px;
+            color: rgb(100, 100, 100);
+        }
+
+        .links {
+            margin-top: 5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .links a {
+            font-size: 13px;
+        }
+
+        .side_navbar a:hover {
+            background: rgb(235, 235, 235);
+        }
+
+        .side_navbar .active {
+            border-left: 2px solid rgb(100, 100, 100);
+        }
+
+        .main-body {
+            width: 100%;
+            padding: 1rem;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+            font-size: 24px; /* Adjusted font size to match the second document */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        strong {
+            font-size: 16px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+		.activate-button {
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="logo">
+        <a href="#">IntelliGrade</a>
+        <div class="search_box">
+            <input type="text" placeholder="Search IntelliGrade">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <nav>
+        <div class="side_navbar">
+            <span>Main Menu</span>
+            <a href="/teacher/dashboard" class="active">Students</a>
+            <a href="/teacher/upload">Upload</a>
+            <a href="/teacher/assignments">Submissions</a>
+            <a href="/teacher/view_grades/">Grades</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </nav>
+
+    <div class="main-body">
+        <h1>Student Submissions for Assignment "Assignment Title"</h1>
+
+        <!-- Button to activate grading app for all submissions -->
+        <form action="{% url 'activate_grading_app_ungraded' assignment.assignment_id %}" method="post">
+            {% csrf_token %}
+            <button type="submit"  class="activate-button">Grading Ungraded Submissions</button>
+        </form>
+
+        {% if submissions %}
+            <ul>
+                {% for submission in submissions %}
+                    <li>
+                        <strong>Student: {{ submission.student.username }}</strong><br>
+                        Submitted At: {{ submission.submitted_at }}<br>
+                        {% if submission.graded %}
+                            Graded: Yes
+                        {% else %}
+                            Graded: No
+                        {% endif %}
+                        <br>
+                        <a href="{% url 'assignment_download' submission.file %}" target="_blank">Download Assignment</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No submissions found for this assignment.</p>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

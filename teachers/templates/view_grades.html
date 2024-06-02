@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Grades</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>Student Grades</h1>
+    
+    <!-- Filter and search form -->
+    <form action="" method="get">
+        <!-- Filter by username -->
+        <label for="username">Filter by Username:</label>
+        <input type="text" id="username" name="username" value="{{ request.GET.username }}">
+        <button type="submit">Apply</button>
+
+        <!-- Sort by grade -->
+        <label for="sort_grade">Sort by Grade:</label>
+        <select name="sort_grade" id="sort_grade">
+            <option value="">-- Select --</option>
+            <option value="high_to_low" {% if request.GET.sort_grade == 'high_to_low' %}selected{% endif %}>High to Low</option>
+        </select>
+        <button type="submit">Apply</button>
+
+        <!-- Sort by assignment -->
+        <label for="sort_assignment">Sort by Assignment:</label>
+        <select name="sort_assignment" id="sort_assignment">
+            <option value="">-- Select --</option>
+            <option value="ascending" {% if request.GET.sort_assignment == 'ascending' %}selected{% endif %}>Ascending</option>
+            <option value="descending" {% if request.GET.sort_assignment == 'descending' %}selected{% endif %}>Descending</option>
+        </select>
+        <button type="submit">Apply</button>
+
+        <!-- Search by assignment or description -->
+        <label for="search">Search:</label>
+        <input type="text" id="search" name="search" value="{{ request.GET.search }}">
+        <button type="submit">Search</button>
+        
+    </form>
+
+    {% if assessments %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Grade</th>
+                    <th>Assignment ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assessment in assessments %}
+                    <tr>
+                        <td>{{ assessment.student_assignment_submission_file.student.username }}</td>
+                        <td>{{ assessment.grade }}</td>
+                        <td>{{ assessment.teacher_assignment_file.assignment_id }}</td>
+                        <td>{{ assessment.teacher_assignment_file.title }}</td>
+                        <td>{{ assessment.teacher_assignment_file.description }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No grades found.</p>
+    {% endif %}
+</body>
+</html>

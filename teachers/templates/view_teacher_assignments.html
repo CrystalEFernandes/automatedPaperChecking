@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Teacher Assignments</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+   
+
+    <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+        body {
+            font-family: "Poppins", sans-serif;
+            background: rgb(219, 219, 219);
+            padding: 0;
+            margin: 0;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            padding: 0 20px; /* Adjusted padding */
+            background: #fff;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo a {
+            color: #000;
+            font-size: 18px;
+            font-weight: 600;
+            margin-right: 20px; /* Adjusted margin */
+        }
+        .search_box {
+            display: flex;
+            align-items: center;
+        }
+        .search_box input {
+            padding: 10px;
+            width: 250px;
+            background: rgb(228, 228, 228);
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border: none;
+            outline: none;
+        }
+        .search_box button {
+            padding: 10px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            cursor: pointer;
+        }
+        .container {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .side_navbar {
+            width: 250px;
+            background: #fff;
+            padding: 20px;
+        }
+        .side_navbar span {
+            color: gray;
+            margin: 1rem 0;
+            font-size: 12px;
+        }
+        .side_navbar a {
+            display: block;
+            padding: 10px 0;
+            font-weight: 500;
+            font-size: 15px;
+            color: rgb(100, 100, 100);
+            text-decoration: none;
+        }
+        .side_navbar a:hover {
+            background: rgb(235, 235, 235);
+        }
+        .side_navbar .active {
+            border-left: 2px solid rgb(100, 100, 100);
+        }
+        .content {
+            width: 100%;
+            padding: 1rem;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        strong {
+            font-size: 16px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+        *{
+          margin: 0;
+          padding: 0;
+          border: none;
+          outline: none;
+          text-decoration: none;
+          box-sizing: border-box;
+          font-family: "Poppins", sans-serif;
+        }
+        body{
+          background: rgb(219, 219, 219);
+        }
+        .header{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 60px;
+          padding: 20px;
+          background: #fff;
+        }
+        .logo{
+          display: flex;
+          align-items: center;
+        }
+        .logo a{
+          color: #000;
+          font-size: 18px;
+          font-weight: 600;
+          margin: 2rem 8rem 2rem 2rem;
+        }
+        .search_box{
+          display: flex;
+          align-items: center;
+        }
+        .search_box input{
+          padding: 9px;
+          width: 250px;
+          background: rgb(228, 228, 228);
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+        .search_box i{
+          padding: 0.66rem;
+          cursor: pointer;
+          color: #fff;
+          background: #000;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+        }
+        .list1{
+            width: 100%;
+        }
+        .header-icons{
+          display: flex;
+          align-items: center;
+        }
+        .header-icons i{
+          margin-right: 2rem;
+          cursor: pointer;
+        }
+        .header-icons .account{
+          width: 130px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .header-icons .account img{
+          width: 35px;
+          height: 35px;
+          cursor: pointer;
+          border-radius: 50%;
+        }
+        .container{
+          margin-top: 10px;
+          display: flex;
+          justify-content: space-between;
+        }
+        
+        nav{
+          background: #fff;
+        }
+        .side_navbar{
+          padding: 1px;
+          display: flex;
+          flex-direction: column;
+        }
+        .side_navbar span{
+          color: gray;
+          margin: 1rem 3rem;
+          font-size: 12px;
+        }
+        .side_navbar a{
+          width: 100%;
+          padding: 0.8rem 3rem;
+          font-weight: 500;
+          font-size: 15px;
+          color: rgb(100, 100, 100);
+        }
+        .links{
+          margin-top: 5rem;
+          display: flex;
+          flex-direction: column;
+        }
+        .links a{
+          font-size: 13px;
+        }
+        .side_navbar a:hover{
+          background: rgb(235, 235, 235);
+        }
+        .side_navbar .active{
+          border-left: 2px solid rgb(100, 100, 100);
+        }
+        .main-body{
+          width: 100%;
+          padding: 1rem;
+        }
+        .promo_card{
+          width: 100%;
+          color: #fff;
+          margin-top: 10px;
+          border-radius: 8px;
+          padding: 0.5rem 1rem 1rem 3rem;
+          background: rgb(37, 37, 37);
+        }
+        .promo_card h1, .promo_card span, button{
+          margin: 10px;
+        }
+        .promo_card button{
+          display: block;
+          padding: 6px 12px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        .history_lists{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+        }
+        .row{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 1rem 0;
+        }
+        table{
+          background: #fff;
+          padding: 1rem;
+          text-align: left;
+          border-radius: 10px;
+          width: 100%;
+        }
+        table td, th{
+          padding: 0.2rem 0.8rem;
+        }
+        table th{
+          font-size: 15px;
+        }
+        table td{
+          font-size: 13px;
+          color: rgb(100, 100, 100);
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="#">IntelliGrade</a>
+            <div class="search_box">
+                <input type="text" placeholder="Search IntelliGrade">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="side_navbar">
+            <span>Main Menu</span>
+            <a href="/teacher/dashboard" class="active">Students</a>
+            <a href="/teacher/upload">Upload</a>
+            <a href="/teacher/assignments">Submissions</a>
+            <a href="/teacher/view_grades/">Grades</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+        <div class="content">
+            <h2>All Assignments Assigned by You</h2>
+            
+            {% if assignments %}
+                <ul>
+                    {% for assignment in assignments %}
+                        <li>
+                            <strong>{{ assignment.title }}</strong><br>
+                            Description: {{ assignment.description }}<br>
+                            Deadline: {{ assignment.deadline }}<br>
+                            <a href="{% url 'view_student_submissions' assignment.assignment_id %}">View Submissions</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No assignments assigned by you.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

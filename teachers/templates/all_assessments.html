@@ -1,0 +1,23 @@
+<!-- all_assessments.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Assessments</title>
+</head>
+<body>
+    <h1>All Assessments</h1>
+    <ul>
+        {% for assessment in assessments %}
+            <li>
+                <h2>Assessment ID: {{ assessment.assessment_id }}</h2>
+                <p><strong>Student:</strong> {{ assessment.student_assignment_submission_file.student.username }}</p>
+                <p><strong>Grade:</strong> {{ assessment.grade }}</p>
+                <p><strong>Response:</strong></p>
+                <p>{{ assessment.response }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

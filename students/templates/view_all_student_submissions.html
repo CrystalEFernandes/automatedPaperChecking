@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View My Grading</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center; /* Center the content horizontally */
+        }
+
+        table {
+            width: 80%; /* Set the width of the table */
+            margin: 20px auto; /* Center the table horizontally */
+            border-collapse: collapse; /* Collapse table borders */
+        }
+
+        th, td {
+            padding: 10px; /* Add padding to cells */
+            border: 1px solid #dddddd; /* Add border to cells */
+        }
+
+        th {
+            background-color: #f2f2f2; /* Background color for table header */
+        }
+
+        button {
+            padding: 5px 10px; /* Add padding to buttons */
+        }
+
+        h1 {
+            margin-bottom: 20px; /* Add margin below the heading */
+        }
+    </style>
+</head>
+<body>
+    <h1>View My Grading</h1>
+    <table>
+        <thead>
+            <tr align="center">
+                <th>Student Name</th>
+                <th>Assignment Title</th>
+                <th>Grade</th>
+                <th>Feedback</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for assessment in assessments %}
+            <tr>
+                <td>{{ assessment.student_assignment_submission_file.student }}</td>
+                <td>{{ assessment.teacher_assignment_file.title }}</td>
+                <td>{{ assessment.grade }}</td>
+                <td>{{ assessment.response }}</td>
+                <td>
+                    <button type="submit">Feedback</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

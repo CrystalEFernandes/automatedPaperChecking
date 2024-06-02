@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automated Paper Checker-Student Login</title>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: rgb(219, 219, 219);
+    }
+    .wrapper {
+      position: relative;
+      width: 400px;
+      height: max-content;
+      background: white;
+      box-shadow: 0 0 30px #000;
+      border-radius: 20px;
+      padding: 40px;
+      overflow: hidden;
+      transition: 0.5s ease-in-out; 
+    }
+    .wrapper:hover{
+      transform: translate(10px,10px);
+    }
+    .form-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 90%;
+      transition: 1s ease-in-out;
+    }
+    .wrapper.active .form-wrapper.sign-in {
+      transform: translateY(-450px);
+    }
+    .wrapper .form-wrapper.sign-up {
+      position: absolute;
+      top: 450px;
+      left: 0;
+    }
+    .wrapper.active .form-wrapper.sign-up {
+      transform: translateY(-450px);
+    }
+    h2 {
+      font-size: 30px;
+      text-align: center;
+    }
+    .input-group {
+      position: relative;
+      margin: 30px 0;
+      border-bottom: 2px solid #000;
+    }
+    .input-group label {
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      transform: translateY(-60%);
+      font-size: 16px;
+      pointer-events: none;
+      transition: .5s;
+    }
+    .input-group input {
+      width: 320px;
+      height: 40px;
+      font-size: 16px;
+      padding: 0 5px;
+      background: transparent;
+      border: none;
+      outline: none;
+      transition: border-bottom-color 0.4s, box-shadow 0.4s;
+    }
+    .input-group input:focus,
+    .input-group input:hover {
+      border-radius: 0.5rem;
+      border-bottom-color: #000;
+      box-shadow: 0 0 8px #000;
+    }
+    .input-group input:focus~label,
+    .input-group input:valid~label {
+      top: -5px;
+    }
+    .remember {
+      margin: -5px 0 15px 5px;
+    }
+    .remember label {
+      font-size: 14px;
+    }
+    .remember label input {
+      accent-color: #000;
+    }
+    button {
+      position: relative;
+      width: 100%;
+      height: 40px;
+      background: #000;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 30px;
+      border: none;
+      outline: none;
+      transition: box-shadow 0.4s;
+    }
+    button:hover {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .signUp-link {
+      font-size: 14px;
+      text-align: center;
+      margin: 15px 0;
+    }
+    .signUp-link p a {
+      color: #000;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .signUp-link p a:hover {
+      text-decoration: underline;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="form-wrapper sign-in">
+      <div class="form">
+        <form method="post" id="form">
+          {% csrf_token %}
+          {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-danger">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+          <h2>Student Login</h2>
+          <div class="input-group">
+            <input type="text" name="username" id="username" class="form-control" required>
+            <label for="username">Username</label>
+          </div>
+          <div class="input-group">
+            <input type="password" name="password" id="password" class="form-control" required>
+            <label for="password">Password</label>
+          </div>
+          <button class="btn btn-danger" type="submit">Login</button>
+          <div class="signUp-link">
+            <p>Forgot password? <a href="{% url 'forget_password' %}" class="signUpBtn-link">Reset It</a></p>
+            <br>
+            <p>Don't have an account? <a href="{% url 'register' %}" class="signUpBtn-link">Register</a></p>
+          </div>
+          
+        </form>
+
+        
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const alertMessages = document.querySelectorAll('.alert.alert-danger'); // Retrieve alert-danger messages from the template
+      
+      if (alertMessages.length > 0) {
+        let messages = '';
+        alertMessages.forEach(message => {
+          messages += message.innerText + '\n'; // Accumulate the messages
+        });
+        alert(messages.trim()); // Display accumulated messages in an alert for demonstration
+        // Replace alert with your preferred method of displaying messages (toast, modal, etc.)
+      }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+      const usernameLabel = document.querySelector('label[for="username"]');
+      const passwordLabel = document.querySelector('label[for="password"]');
+    
+      usernameInput.addEventListener('input', function() {
+        if (usernameInput.value.length > 0) {
+          usernameLabel.style.top = '-5px';
+        } else {
+          usernameLabel.style.top = '50%';
+        }
+      });
+    
+      passwordInput.addEventListener('input', function() {
+        if (passwordInput.value.length > 0) {
+          passwordLabel.style.top = '-5px';
+        } else {
+          passwordLabel.style.top = '50%';
+        }
+      });
+    });
+  </script>
+  
+  
+  
+</body>
+</html>
